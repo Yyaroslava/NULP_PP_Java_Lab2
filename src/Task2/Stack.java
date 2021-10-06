@@ -17,8 +17,8 @@ public class Stack implements Iterable<Node> {
 		if (isEmpty()) {
 			throw new Exception("pop from empty stack!");
 		}
-		final int result = head.data;
-		head = head.next;
+		final int result = head.getData();
+		head = head.getNext();
 		return result;
 	}
 
@@ -37,8 +37,8 @@ public class Stack implements Iterable<Node> {
 		Node currentHead = head;
 		String result = "[ ";
 		while (currentHead != null) {
-			result += currentHead.data + ", ";
-			currentHead = currentHead.next;
+			result += currentHead.getData() + ", ";
+			currentHead = currentHead.getNext();
 		}
 		result += "]";
 		return result;
@@ -51,7 +51,7 @@ public class Stack implements Iterable<Node> {
 			if (current == null) {
 				current = head;
 			} else {
-				current = current.next;
+				current = current.getNext();
 			}
 			return (current != null);
 		}

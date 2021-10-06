@@ -16,7 +16,7 @@ public class Main {
 		stack.push(99);
 		System.out.println(stack);
 		System.out.println("forEach loop: ");
-		stack.forEach(n -> {System.out.print(n.data + " ");});
+		stack.forEach(n -> {System.out.print(n.getData() + " ");});
 		System.out.println();
 		System.out.println("pop: ");
 		final int value = stack.pop();

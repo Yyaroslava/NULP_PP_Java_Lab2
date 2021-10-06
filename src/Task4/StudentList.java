@@ -2,21 +2,19 @@ package Task4;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class StudentList {
-	private final String[] subjects;
-	private final Student[] students;
-	private int subjectsCount;
-	private int studentsCount;
+	private List<String> subjects;
+	private List<Student> students;
 	private final HashMap<String, HashMap<String, Integer>> map;
 
 	public StudentList(String[] subjects) {
-		this.subjects = new String[100];
-		this.students = new Student[100];
-		this.subjectsCount = subjects.length;
-		this.studentsCount = 0;
+		this.subjects = new ArrayList(100);
+		this.students = new ArrayList(100);
 		for (int i = 0; i < subjects.length; i++) {
-			this.subjects[i] = subjects[i];
+			this.subjects.add(subjects[i] );
 		}
 		this.map = new HashMap<>();
 		for (String subject : subjects) {
@@ -25,11 +23,11 @@ public class StudentList {
 	}
 
 	public void addSubject(String subject) {
-		subjects[subjectsCount++] = subject;
+		subjects.add(subject);
 	}
 
 	public void addStudent(Student student) {
-		students[studentsCount++] = student;
+		students.add(student);
 	}
 
 	public void setGrade(String subject, String id, int grade) {
@@ -62,12 +60,10 @@ public class StudentList {
 	}
 
 	public void showAllGrages() {
-		for (int i = 0; i < studentsCount; i++) {
-			Student s = students[i];
-			System.out.print(s.getId() + ": ");
-			for (int j = 0; j < subjectsCount; j++) {
-				String sub = subjects[j];
-				System.out.print(sub + "=" + getGrade(sub, s.getId()) + " ");
+		for(Student student: students) {
+			System.out.print(student.getId() + ": ");
+			for(String subject: subjects) {
+				System.out.print(subject + "=" + getGrade(subject, student.getId()) + " ");
 			}
 			System.out.println();
 		}
@@ -75,9 +71,8 @@ public class StudentList {
 
 	private int getStudSum(String id) {
 		int result = 0;
-		for (int i = 0; i < subjectsCount; i++) {
-			String sub = subjects[i];
-			result += getGrade(sub, id);
+		for (String subject : subjects) {
+			result += getGrade(subject, id);
 		}
 		return result;
 	}
@@ -85,9 +80,8 @@ public class StudentList {
 	public void getBestStudentInfo() {
 		final String bestStudentId = getBestStudentId();
 		System.out.print(bestStudentId + ": ");
-		for (int j = 0; j < subjectsCount; j++) {
-			String sub = subjects[j];
-			System.out.print(sub + "=" + getGrade(sub, bestStudentId) + " ");
+		for (String subject : subjects) {
+			System.out.print(subject + "=" + getGrade(subject, bestStudentId) + " ");
 		}
 		System.out.println();
 	}
@@ -96,12 +90,11 @@ public class StudentList {
 		// if the sum of the student's grades is greater than the sum of the grades of another, then the average grade is also higher
 		int currentMax = -1;
 		Student bestStudent = null;
-		for (int i = 0; i < studentsCount; i++) {
-			Student s = students[i];
-			int currentSum = getStudSum(s.getId());
+		for (Student student : students) {
+			int currentSum = getStudSum(student.getId());
 			if (currentSum > currentMax) {
 				currentMax = currentSum;
-				bestStudent = s;
+				bestStudent = student;
 			}
 		}
 		return bestStudent.getId();
